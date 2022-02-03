@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/page_navigation"
+    app:startDestination="@id/menu_item_budget">
+
+    <fragment
+        android:id="@+id/menu_item_budget"
+        android:name="com.example.mybudgeta.BudgetFragment"
+        android:label="@string/app_name"
+        tools:layout="@layout/fragment_budget" />
+    <fragment
+        android:id="@+id/menu_item_all_expenses"
+        android:name="com.example.mybudgeta.ExpensesFragment"
+        android:label="All Expenses"
+        tools:layout="@layout/fragment_expenses" />
+    <fragment
+        android:id="@+id/menu_item_lunch"
+        android:name="com.example.mybudgeta.LunchFragment"
+        android:label="Lunch"
+        tools:layout="@layout/fragment_lunch" />
+    <fragment
+        android:id="@+id/menu_item_transport"
+        android:name="com.example.mybudgeta.TransportFragment"
+        android:label="Transport"
+        tools:layout="@layout/fragment_transport" />
+    <fragment
+        android:id="@+id/menu_item_snacks"
+        android:name="com.example.mybudgeta.SnacksFragment"
+        android:label="Snacks"
+        tools:layout="@layout/fragment_snacks" />
+    <fragment
+        android:id="@+id/menu_item_other"
+        android:name="com.example.mybudgeta.OtherFragment"
+        android:label="Other"
+        tools:layout="@layout/fragment_other" />
+    <fragment
+        android:id="@+id/menu_item_summary"
+        android:name="com.example.mybudgeta.SummaryFragment"
+        android:label="Summary"
+        tools:layout="@layout/fragment_summary" />
+</navigation>

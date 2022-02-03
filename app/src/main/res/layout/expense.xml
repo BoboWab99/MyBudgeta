@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <CheckBox
+        android:id="@+id/cb_expense_paid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="5dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <LinearLayout
+        android:id="@+id/expense_details_layout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
+        android:paddingEnd="10dp"
+        app:layout_constraintEnd_toStartOf="@+id/btn_expense_details"
+        app:layout_constraintStart_toEndOf="@+id/cb_expense_paid"
+        app:layout_constraintBottom_toTopOf="@id/bottom_separator"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/tv_expense_desc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/lorem_ipsum"
+            android:textSize="18sp"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:textColor="@color/black" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/tv_expense_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2022-02-02" />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_arrow_right_alt" />
+            <TextView
+                android:id="@+id/tv_expense_category"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Lunch" />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_arrow_right_alt" />
+            <TextView
+                android:id="@+id/tv_expense_cost"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ksh 1000"
+                android:textSize="16sp"
+                android:textColor="@color/color_main" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/btn_expense_details"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:paddingStart="5dp"
+        android:paddingEnd="5dp"
+        android:backgroundTint="@color/white"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/bottom_separator"
+        android:src="@drawable/ic_arrow_right"
+        android:contentDescription="@string/expense_details"
+        app:tint="@color/black_lighter_7" />
+
+    <View
+        android:id="@+id/bottom_separator"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="2dp"
+        android:background="@color/black_lighter_10"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

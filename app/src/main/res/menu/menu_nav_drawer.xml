@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <item android:title="@string/menu_group_general">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/menu_item_budget"
+                    android:icon="@drawable/ic_wallet"
+                    android:title="@string/my_budget_label" />
+                <item
+                    android:id="@+id/menu_item_all_expenses"
+                    android:icon="@drawable/ic_credit_card"
+                    android:title="@string/all_expenses_label" />
+            </group>
+        </menu>
+    </item>
+
+    <item android:title="@string/menu_group_categories">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/menu_item_lunch"
+                    android:icon="@drawable/ic_fastfood"
+                    android:title="@string/lunch_label" />
+                <item
+                    android:id="@+id/menu_item_transport"
+                    android:icon="@drawable/ic_car"
+                    android:title="@string/transport_label" />
+                <item
+                    android:id="@+id/menu_item_snacks"
+                    android:icon="@drawable/ic_pizza"
+                    android:title="@string/snacks_label" />
+                <item
+                    android:id="@+id/menu_item_other"
+                    android:icon="@drawable/ic_menu_alt"
+                    android:title="@string/other_label" />
+            </group>
+        </menu>
+    </item>
+
+    <item android:title="@string/reports">
+        <menu>
+            <item
+                android:id="@+id/menu_item_summary"
+                android:icon="@drawable/ic_list"
+                android:title="@string/summary" />
+        </menu>
+    </item>
+</menu>

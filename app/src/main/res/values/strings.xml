@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">MyBudgeta</string>
+    <string name="open_nav_drawer">Open navigation drawer</string>
+    <string name="close_nav_drawer">Close navigation drawer</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="menu_group_general">General</string>
+    <string name="menu_group_categories">Categories</string>
+    <string name="menu_group_more">More</string>
+    <string name="my_budget_label">My Budget</string>
+    <string name="all_expenses_label">All expenses</string>
+    <string name="lunch_label">Lunch</string>
+    <string name="transport_label">Transport</string>
+    <string name="snacks_label">Snacks</string>
+    <string name="extra_1_label">Extra 1</string>
+    <string name="extra_2_label">Extra 2</string>
+    <string name="extra_3_label">Extra 3</string>
+    <string name="add_new_expense">Add new expense</string>
+    <string name="main_menu_icon">Main menu icon</string>
+    <string name="more_menu_icon">More menu icon</string>
+    <string name="other_label">Other</string>
+    <string name="back_button">Back button</string>
+    <string name="expense_details">Expense details</string>
+    <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ultrices lacinia elit. Quisque efficitur felis ac nulla suscipit finibus.</string>
+    <string name="reports">Reports</string>
+    <string name="summary">Summary</string>
+    <string name="settings">Settings</string>
+    <string name="logout">Logout</string>
+</resources>

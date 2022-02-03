@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <color name="color_main">#3399ff</color>
+    <color name="main_darker_1">#0080ff</color>
+    <color name="main_darker_2">#0066cc</color>
+    <color name="main_darker_3">#004d99</color>
+    <color name="main_darker_4">#003366</color>
+    <color name="main_darker_5">#001a33</color>
+    <color name="main_lighter_1">#66b3ff</color>
+    <color name="main_lighter_2">#99ccff</color>
+    <color name="main_lighter_3">#cce6ff</color>
+    <color name="main_lighter_4">#e6f2ff</color>
+
+    <color name="color_black">#0d0d0d</color>
+    <color name="black_lighter_1">#0d0d0d</color>
+    <color name="black_lighter_2">#262626</color>
+    <color name="black_lighter_3">#404040</color>
+    <color name="black_lighter_4">#595959</color>
+    <color name="black_lighter_5">#737373</color>
+    <color name="black_lighter_6">#8c8c8c</color>
+    <color name="black_lighter_7">#a6a6a6</color>
+    <color name="black_lighter_8">#bfbfbf</color>
+    <color name="black_lighter_9">#d9d9d9</color>
+    <color name="black_lighter_10">#f2f2f2</color>
+
+    <color name="color_red">#ff3333</color>
+    <color name="color_purple">#9933ff</color>
+    <color name="color_green">#33ff66</color>
+</resources>

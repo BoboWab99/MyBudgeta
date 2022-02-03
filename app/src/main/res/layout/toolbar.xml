@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
+        android:elevation="15dp"
+        android:background="?attr/colorPrimaryVariant"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/app_menu_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_menu_alt"
+            app:tint="@color/white"
+            android:contentDescription="@string/main_menu_icon" />
+
+        <TextView
+            android:id="@+id/app_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/app_name"
+            android:layout_weight="1"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:gravity="center" />
+
+        <ImageView
+            android:id="@+id/app_menu_secondary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_more_vert"
+            app:tint="@color/white"
+            android:contentDescription="@string/more_menu_icon" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
