@@ -2,23 +2,35 @@ package com.example.mybudgeta
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.ImageView
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.GravityCompat
+import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
-import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import androidx.navigation.ui.NavigationUI
+import androidx.navigation.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.navigateUp
+import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.navigation.NavigationView
 
+import androidx.core.content.res.ResourcesCompat
+import androidx.core.view.GravityCompat
+import com.google.firebase.database.Query
+import java.util.*
+
+
 class MainActivity : AppCompatActivity() {
-    val auth = Helper.auth
+    private val auth = Helper.auth
+    private val db = Helper.db
     private lateinit var drawerLayout: DrawerLayout
+    private lateinit var toolbar: Toolbar
     private lateinit var navView: NavigationView
-    private lateinit var navController: NavController
     private lateinit var navHostFragment: Fragment
+    private lateinit var appBarConfiguration: AppBarConfiguration
 
     companion object {
         var navHostFrag: Fragment? = null
@@ -33,86 +45,106 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         drawerLayout = findViewById(R.id.drawer_layout)
+        toolbar = findViewById(R.id.main_toolbar)
         navView = findViewById(R.id.navigation_view)
         navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment)!!
         navHostFrag = navHostFragment
 
-        val appMenuIcon: ImageView = findViewById(R.id.app_menu_icon)
-        appMenuIcon.setOnClickListener {
-            drawerLayout.openDrawer(GravityCompat.START)
+        val navItems = setOf(
+            R.id.menu_item_budget,
+            R.id.menu_item_all_expenses,
+            R.id.menu_item_lunch,
+            R.id.menu_item_transport,
+            R.id.menu_item_snacks,
+            R.id.menu_item_other,
+            R.id.menu_item_summary,
+        )
+        appBarConfiguration = AppBarConfiguration(navItems, drawerLayout)
+
+        setSupportActionBar(toolbar)
+        // change menu icon: NOT working properly
+        toolbar.post {
+            val menuIcon = ResourcesCompat.getDrawable(resources, R.drawable.ic_menu_alt, null)
+            toolbar.navigationIcon = menuIcon
         }
 
-        navController = Navigation.findNavController(this, R.id.nav_host_fragment)
-        NavigationUI.setupWithNavController(navView, navController)
-
-        val appTitleTv:TextView = findViewById(R.id.app_title)
-        navController.addOnDestinationChangedListener { controller, destination, arguments ->
-            appTitleTv.text = destination.label
-        }
+        val navController = findNavController(R.id.nav_host_fragment)
+        setupActionBarWithNavController(navController, appBarConfiguration)
+        navView.setupWithNavController(navController)
 
         val currUser = auth.currentUser
-        if(currUser == null) {
+
+        if(currUser != null) {
+            val navDrawerHeader = navView.getHeaderView(0)
+            val usernameTf: TextView = navDrawerHeader.findViewById(R.id.nav_drawer_header_username)
+            val greetingTf: TextView = navDrawerHeader.findViewById(R.id.nav_drawer_header_greeting)
+
+            val query: Query = db.child(Helper.DB_REF_USERS).child(currUser.uid)
+            query.get().addOnSuccessListener { snapshot ->
+                if(!snapshot.exists())
+                    return@addOnSuccessListener
+
+                val username = snapshot.child(Helper.USER_ATTR_USERNAME).value.toString()
+                usernameTf.text = username
+                greetingTf.text = greeting()
+
+            }.addOnFailureListener {
+                Helper.showToast(this, "getUsername:addOnFailureListener")
+            }
+
+        } else {
             Helper.showToast(this, "Login required!")
             val loginInt = Intent(this, LoginActivity::class.java)
             startActivity(loginInt)
         }
-
-        /*supportActionBar?.setDisplayHomeAsUpEnabled(true)*/
-
-        /*supportFragmentManager.beginTransaction()
-            .replace(R.id.frame_layout, MainFragment())
-            .commit()*/
-
-        /*navView.setNavigationItemSelectedListener {
-            it.isChecked = true // highlight selected menu item
-            var fragment: Fragment? = null
-
-            when(it.itemId) {
-                R.id.menu_item_budget -> fragment = BudgetFragment()
-                R.id.menu_item_all_expenses -> showToast("ALL EXPENSES")
-                R.id.menu_item_lunch -> fragment = LunchFragment()
-                R.id.menu_item_transport -> fragment = TransportFragment()
-                R.id.menu_item_snacks -> fragment = SnacksFragment()
-                R.id.menu_item_extra1 -> showToast("EXTRA EXPENSES 1")
-                R.id.menu_item_extra2 -> showToast("EXTRA EXPENSES 2")
-                R.id.menu_item_extra3 -> showToast("EXTRA EXPENSES 3")
-            }
-            if(fragment != null) {
-                replaceFragment(fragment, it.title.toString())
-            }
-            true
-        }*/
     }
 
-    // launch nav drawer when hamburger menu is clicked
-    /*override fun onSupportNavigateUp(): Boolean {
-        drawerLayout.openDrawer(navView)
-        return true
-    }*/
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_toolbar_options, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
 
-    // close nav drawer when back button is clicked
-    /*override fun onBackPressed() {
-        if(drawerLayout.isDrawerOpen(GravityCompat.START)) {
+    override fun onSupportNavigateUp(): Boolean {
+        val navController = Navigation.findNavController(this, R.id.nav_host_fragment)
+        return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
+    }
+
+    override fun onBackPressed() {
+        if(drawerLayout.isDrawerOpen(GravityCompat.START))
             drawerLayout.closeDrawer(GravityCompat.START)
-        } else {
+        else
             super.onBackPressed()
-        }
-    }*/
+    }
 
-    /*override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if(drawerToggle.onOptionsItemSelected(item)) {
-            return true
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId) {
+            R.id.menu_item_logout -> logout()
         }
         return super.onOptionsItemSelected(item)
-    }*/
+    }
 
-    /*private fun replaceFragment(fragment: Fragment, title: String) {
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.frame_layout, fragment)
-            .commit()
+    private fun logout() {
+        auth.signOut()
+        val loginInt = Intent(this, LoginActivity::class.java)
+        startActivity(loginInt)
+    }
 
-        // set activity title & close drawer
-        drawerLayout.closeDrawers()
-        setTitle(title)
-    }*/
+    fun greeting(): String? {
+        val greeting: String?
+        val calendar: Calendar = Calendar.getInstance()
+        val hourOfDay = calendar.get(Calendar.HOUR_OF_DAY)
+
+        if(hourOfDay in 0..11)
+            greeting = "Good morning!"
+        else if(hourOfDay in 12..16)
+            greeting = "Good afternoon!"
+        else if(hourOfDay in 17..20)
+            greeting = "Good evening!"
+        else if(hourOfDay in 21..23)
+            greeting = "Good night!"
+        else
+            greeting = null
+        return greeting
+    }
+
 }

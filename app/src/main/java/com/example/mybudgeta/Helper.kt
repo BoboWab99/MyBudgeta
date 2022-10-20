@@ -36,6 +36,8 @@ class Helper {
         const val FRAGMENT_LABEL_SNACKS = "Snacks"
         const val FRAGMENT_LABEL_OTHER = "Other"
 
+        const val USER_ATTR_USERNAME = "username"
+
         const val EXPENSE_ATTR_TITLE = "title"
         const val EXPENSE_ATTR_COST = "cost"
         const val EXPENSE_ATTR_CATEGORY = "category"

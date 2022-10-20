@@ -11,15 +11,15 @@ import com.google.firebase.database.*
 class ExpenseDetailsActivity : AppCompatActivity() {
     private val db = Helper.db
     private val auth = Helper.auth
-    private var exp: Expense? = null
-    private var dbExpenses: DatabaseReference? = null
+    private lateinit var currExp: Expense
+    private lateinit var dbExpenses: DatabaseReference
 
-    private var expTitleTv: TextView? = null
-    private var expCostTv: TextView? = null
-    private var expCategoryTv: TextView? = null
-    private var expDateTv: TextView? = null
-    private var expDeleteBtn: Button? = null
-    private var expUpdateBtn: Button? = null
+    private lateinit var expTitleTv: TextView
+    private lateinit var expCostTv: TextView
+    private lateinit var expCategoryTv: TextView
+    private lateinit var expDateTv: TextView
+    private lateinit var expDeleteBtn: Button
+    private lateinit var expUpdateBtn: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,13 +39,13 @@ class ExpenseDetailsActivity : AppCompatActivity() {
         loadExpData(expenseId)
 
         // update
-        expUpdateBtn!!.setOnClickListener {
-            Helper.showExpenseDialog(this, exp, true, expenseId!!)
+        expUpdateBtn.setOnClickListener {
+            Helper.showExpenseDialog(this, currExp, true, expenseId!!)
         }
 
         // delete
-        expDeleteBtn!!.setOnClickListener {
-            dbExpenses!!.child(expenseId!!).removeValue()
+        expDeleteBtn.setOnClickListener {
+            dbExpenses.child(expenseId!!).removeValue()
             Helper.showToast(this, "Expense deleted!")
             this.finish()
         }
@@ -57,7 +57,7 @@ class ExpenseDetailsActivity : AppCompatActivity() {
     }
 
     private fun loadExpData(expenseId: String?) {
-        val query: Query = dbExpenses!!.child(expenseId!!)
+        val query: Query = dbExpenses.child(expenseId!!)
         val context: Context = this
 
         query.addValueEventListener(object : ValueEventListener{
@@ -65,18 +65,18 @@ class ExpenseDetailsActivity : AppCompatActivity() {
                 if(!snapshot.exists())
                     return
 
-                val title = snapshot.child("title").value.toString()
-                val cost = snapshot.child("cost").value.toString().toDouble()
-                val category = snapshot.child("category").value.toString()
-                val date = snapshot.child("date").value.toString()
-                val uid = snapshot.child("uid").value.toString()
+                val title = snapshot.child(Helper.EXPENSE_ATTR_TITLE).value.toString()
+                val cost = snapshot.child(Helper.EXPENSE_ATTR_COST).value.toString().toDouble()
+                val category = snapshot.child(Helper.EXPENSE_ATTR_CATEGORY).value.toString()
+                val date = snapshot.child(Helper.EXPENSE_ATTR_DATE).value.toString()
+                val uid = snapshot.child(Helper.EXPENSE_ATTR_UID).value.toString()
 
-                exp = Expense(title=title, cost=cost, category=category, date=date, uid=uid)
+                currExp = Expense(title=title, cost=cost, category=category, date=date, uid=uid)
 
-                expTitleTv!!.text = exp!!.title
-                expCostTv!!.text = exp!!.cost.toString()
-                expCategoryTv!!.text = exp!!.category
-                expDateTv!!.text = exp!!.date
+                expTitleTv.text = currExp.title
+                expCostTv.text = currExp.cost.toString()
+                expCategoryTv.text = currExp.category
+                expDateTv.text = currExp.date
             }
 
             override fun onCancelled(error: DatabaseError) {
